@@ -30,7 +30,6 @@ in
 
     substituteInPlace $out/bin/home-manager \
       --subst-var-by bash "${bash}" \
-      --subst-var-by nix "${nix}/bin/nix" \
       --subst-var-by DEP_PATH "${
       lib.makeBinPath [
         coreutils
@@ -38,6 +37,7 @@ in
         gettext
         gnused
         jq
+        nix
         less
         ncurses
         nixos-option

@@ -45,8 +45,8 @@ function setWorkDir() {
 
 # Checks whether the 'flakes' and 'nix-command' Nix options are enabled.
 function hasFlakeSupport() {
-    type -p @nix@ > /dev/null \
-        && @nix@ show-config 2> /dev/null \
+    type -p nix > /dev/null \
+        && nix show-config 2> /dev/null \
             | grep experimental-features \
             | grep flakes \
             | grep -q nix-command
@@ -434,7 +434,7 @@ EOF
             _i 'Creating %s...' "$flakeFile"
 
             local nixSystem
-            nixSystem=$(@nix@ eval --expr builtins.currentSystem --raw --impure)
+            nixSystem=$(nix eval --expr builtins.currentSystem --raw --impure)
 
             mkdir -p "$confDir"
             cat > "$flakeFile" <<EOF
@@ -545,7 +545,7 @@ function doBuildFlake() {
         extraArgs=("${extraArgs[@]}" "--verbose")
     fi
 
-    @nix@ build \
+    nix build \
         "${extraArgs[@]}" \
         "${PASSTHROUGH_OPTS[@]}"
 }
